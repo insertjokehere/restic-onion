@@ -1,0 +1,6 @@
+{
+    "label": "Restic",
+    "icon": "restic.png",
+    "launch": "launch.sh",
+    "description": "Backup saves using Restic"
+}
