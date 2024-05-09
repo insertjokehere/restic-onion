@@ -1,3 +1,4 @@
-App/Restic/restic
+App/Restic/bin
+App/Restic/cacert.pem
 .vscode-ctags
 restic-onionui.zip

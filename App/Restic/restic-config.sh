@@ -17,6 +17,13 @@ Backup_Now ()
     Main_Menu
 }
 
+Init_Repo ()
+{
+    /mnt/SDCARD/App/Restic/init_repo.sh
+    read -n 1 -s -r -p "Press A to continue"
+    Main_Menu
+}
+
 Last_Backup ()
 {
     if [ -f /mnt/SDCARD/.restic_last_backup ]; then
@@ -34,15 +41,16 @@ if [ -f /mnt/SDCARD/.tmp_update/startup/restic_autostart.sh ]; then
 else
     Option1="Enable automatic backups"
 fi
+Option2="Init Restic Repository"
+Option3="Backup Now"
+Option4="Exit"
 
-Option2="Backup Now"
-Option3="Exit"
-
-choice=$( echo -e "$Option1\n$Option2\n$Option3" | /mnt/SDCARD/.tmp_update/script/shellect.sh -t "              --== Restic ==--" -b "Last Backup: $(Last_Backup)")
+choice=$( echo -e "$Option1\n$Option2\n$Option3\n$Option4" | /mnt/SDCARD/.tmp_update/script/shellect.sh -t "              --== Restic ==--" -b "Last Backup: $(Last_Backup)")
 
 [ "$choice" = "$Option1" ] && Toggle_Auto_Backups
-[ "$choice" = "$Option2" ] && Backup_Now
-[ "$choice" = "$Option3" ] && exit
+[ "$choice" = "$Option2" ] && Init_Repo
+[ "$choice" = "$Option3" ] && Backup_Now
+[ "$choice" = "$Option4" ] && exit
 }
 
 Missing_Config ()
