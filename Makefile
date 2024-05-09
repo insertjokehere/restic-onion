@@ -2,6 +2,8 @@ include config.mk
 
 package: restic-onionui.zip
 
+download: App/Restic/bin/restic App/Restic/bin/rclone App/Restic/cacert.pem
+
 clean:
 	-rm restic-onionui.zip
 	-rm -r App/Restic/bin
@@ -23,11 +25,12 @@ App/Restic/bin/rclone:
 	sha256sum -c rclone.zip.sha256
 	rm rclone.zip.sha256
 	unzip $@.zip
+	rm $@.zip
 	mv rclone-v$(RCLONE_VERSION)-linux-arm-v7/rclone $@
 	rm -rf rclone-v$(RCLONE_VERSION)-linux-arm-v7
 
 App/Restic/cacert.pem:
 	wget https://curl.se/ca/cacert.pem -O $@
 
-restic-onionui.zip: App/Restic/bin/restic App/Restic/bin/rclone App/Restic/cacert.pem
+restic-onionui.zip: download
 	zip -r restic-onionui.zip App/
