@@ -2,7 +2,7 @@
 
 This app backs up your Onion saves using [Restic](https://restic.net/).
 
-![Screenshot of the Restic-Onion app](/assets/images/Screenshot.png)
+![Screenshot of the Restic-Onion app](/Screenshot.png)
 
 ## Features
 
