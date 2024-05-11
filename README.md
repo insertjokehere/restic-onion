@@ -2,6 +2,8 @@
 
 This app backs up your Onion saves using [Restic](https://restic.net/).
 
+![Screenshot of the Restic-Onion app](/assets/images/Screenshot.png)
+
 ## Features
 
 * Backup saves to any target restic supports (including through rclone)
