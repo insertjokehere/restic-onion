@@ -1,3 +1,4 @@
 #!/bin/sh
-date > /mnt/SDCARD/.restic_last_backup_attempt
-/mnt/SDCARD/App/Restic/restic.sh backup /mnt/SDCARD/Saves/ && date > /mnt/SDCARD/.restic_last_backup
+. /mnt/SDCARD/App/Restic/common.sh
+date > $LAST_BACKUP_ATTEMPT_FILE
+/mnt/SDCARD/App/Restic/restic.sh backup /mnt/SDCARD/Saves/ && date > $LAST_BACKUP_FILE

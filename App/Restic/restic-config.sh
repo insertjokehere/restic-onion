@@ -1,11 +1,13 @@
 #!/bin/sh
 
+. /mnt/SDCARD/App/Restic/common.sh
+
 Toggle_Auto_Backups ()
 {
-    if [ -f /mnt/SDCARD/.tmp_update/startup/restic_autostart.sh ]; then
-        rm /mnt/SDCARD/.tmp_update/startup/restic_autostart.sh
+    if [ -f $STARTUP_SCRIPT ]; then
+        rm $STARTUP_SCRIPT
     else
-        cp /mnt/SDCARD/App/Restic/restic_autostart.sh /mnt/SDCARD/.tmp_update/startup/restic_autostart.sh
+        cp /mnt/SDCARD/App/Restic/restic_autostart.sh $STARTUP_SCRIPT
     fi
     Main_Menu
 }
@@ -26,31 +28,48 @@ Init_Repo ()
 
 Last_Backup ()
 {
-    if [ -f /mnt/SDCARD/.restic_last_backup ]; then
-        cat /mnt/SDCARD/.restic_last_backup
+    if [ -f $LAST_BACKUP_FILE ]; then
+        cat $LAST_BACKUP_FILE
     else
         echo "Never!"
     fi
 }
 
+About_Menu ()
+{
+    echo "restic-onionui"
+    echo "v${VERSION}"
+    echo "Copyright (c) 2024, Will Hughes"
+    echo
+    echo "Restic - Copyright (c) 2014, Alexander Neumann"
+    echo "Rclone - Copyright (C) 2012, Nick Craig-Wood"
+    echo "For more details, see LICENSE file"
+    echo
+    read -n 1 -s -r -p "Press A to continue"
+    Main_Menu
+}
+
 Main_Menu ()
 {
-clear
-if [ -f /mnt/SDCARD/.tmp_update/startup/restic_autostart.sh ]; then
-    Option1="Disable automatic backups"
-else
-    Option1="Enable automatic backups"
-fi
-Option2="Init Restic Repository"
-Option3="Backup Now"
-Option4="Exit"
+    mkdir -p $DATA_DIR || true
+    clear
+    if [ -f $STARTUP_SCRIPT ]; then
+        Option1="Disable automatic backups"
+    else
+        Option1="Enable automatic backups"
+    fi
+    Option2="Init Restic Repository"
+    Option3="Backup Now"
+    Option4="About"
+    Option5="Exit"
 
-choice=$( echo -e "$Option1\n$Option2\n$Option3\n$Option4" | /mnt/SDCARD/.tmp_update/script/shellect.sh -t "              --== Restic ==--" -b "Last Backup: $(Last_Backup)")
+    choice=$( echo -e "$Option1\n$Option2\n$Option3\n$Option4\n$Option5" | /mnt/SDCARD/.tmp_update/script/shellect.sh -t "              --== Restic ==--" -b "Last Backup: $(Last_Backup)")
 
-[ "$choice" = "$Option1" ] && Toggle_Auto_Backups
-[ "$choice" = "$Option2" ] && Init_Repo
-[ "$choice" = "$Option3" ] && Backup_Now
-[ "$choice" = "$Option4" ] && exit
+    [ "$choice" = "$Option1" ] && Toggle_Auto_Backups
+    [ "$choice" = "$Option2" ] && Init_Repo
+    [ "$choice" = "$Option3" ] && Backup_Now
+    [ "$choice" = "$Option4" ] && About_Menu
+    [ "$choice" = "$Option5" ] && exit
 }
 
 Missing_Config ()
