@@ -1,0 +1,16 @@
+# See https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html
+
+# Basic example - Restic REST server
+export RESTIC_REPOSITORY=rest:https://user:password@restic.example.com/foo
+export RESTIC_PASSWORD=foobarbaz
+
+# S3
+export RESTIC_REPOSITORY=s3:s3.amazonaws.com/bucket_name
+export RESTIC_PASSWORD=foobarbaz
+export AWS_ACCESS_KEY_ID=<MY_ACCESS_KEY>
+export AWS_SECRET_ACCESS_KEY=<MY_SECRET_ACCESS_KEY>
+
+# rclone
+export RCLONE_PATH=/mnt/SDCARD/rclone.conf
+export RESTIC_REPOSITORY=rclone:foo:bar
+export RESTIC_PASSWORD=foobarbaz

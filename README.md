@@ -9,6 +9,10 @@ This app backs up your Onion saves using [Restic](https://restic.net/).
 * Backup saves to any target restic supports (including through rclone)
 * Automatically backup when OnionOS starts
 
+## Compatibility
+
+This has been tested with OnionOS v4.3 on a Miyoo Mini Plus. It might work with other versions of OnionOS and on different devices, but hasn't been tested - if it works, please let me know!
+
 ## Installation
 
 * Download the zip from the [releases page](https://github.com/insertjokehere/restic-onion/releases)
